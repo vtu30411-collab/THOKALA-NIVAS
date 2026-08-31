@@ -1,0 +1,90 @@
+import java.util.*;
+
+public class Solution {
+
+    // Find longest palindromic substring length
+    static int longestPalindrome(String s) {
+        int n = s.length();
+        int maxLen = 1;
+
+        for (int center = 0; center < n; center++) {
+
+            // Odd length palindrome
+            int left = center;
+            int right = center;
+
+            while (left >= 0 && right < n &&
+                   s.charAt(left) == s.charAt(right)) {
+
+                maxLen = Math.max(maxLen, right - left + 1);
+                left--;
+                right++;
+            }
+
+            // Even length palindrome
+            left = center;
+            right = center + 1;
+
+            while (left >= 0 && right < n &&
+                   s.charAt(left) == s.charAt(right)) {
+
+                maxLen = Math.max(maxLen, right - left + 1);
+                left--;
+                right++;
+            }
+        }
+
+        return maxLen;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt();
+        String s = sc.next();
+
+        // Generate all rotations
+        for (int k = 0; k < n; k++) {
+
+            String rotation = s.substring(k) + s.substring(0, k);
+
+            int answer = longestPalindrome(rotation);
+
+            System.out.println(answer);
+        }
+
+        sc.close();
+    }
+}
+
+o/p:Input (stdin)
+13
+aaaaabbbbaaaa
+Your Output (stdout)
+12
+12
+10
+8
+8
+9
+11
+13
+11
+9
+8
+8
+10
+Expected Output
+12
+12
+10
+8
+8
+9
+11
+13
+11
+9
+8
+8
+10
